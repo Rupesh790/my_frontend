@@ -1,0 +1,50 @@
+.home-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr 280px;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+  min-height: 500px;
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  color: #0f172a;
+}
+
+.stock-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.green {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.red {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+}

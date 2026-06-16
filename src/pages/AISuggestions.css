@@ -1,0 +1,56 @@
+.ai-card {
+  margin-top: 25px;
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
+
+.ai-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.ai-header h2 {
+  color: #0f172a;
+}
+
+.ai-header span {
+  color: #64748b;
+}
+
+.ai-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ai-card th {
+  background: #f8fafc;
+  padding: 14px;
+  text-align: left;
+}
+
+.ai-card td {
+  padding: 14px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.buy-badge {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.sell-badge {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
