@@ -20,9 +20,9 @@ function Home() {
 
       try {
         const [gainersData, losersData, buzzersData] = await Promise.all([
-          apiGet("/api/top-gainers/"),
-          apiGet("/api/top-losers/"),
-          apiGet("/api/volume-buzzers/"),
+          apiGet("/trading/api/top-gainers/"),
+          apiGet("/trading/api/top-losers/"),
+          apiGet("/trading/api/volume-buzzers/"),
         ]);
 
         if (!cancelled) {

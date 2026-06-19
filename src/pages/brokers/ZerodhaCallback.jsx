@@ -24,6 +24,7 @@ function ZerodhaCallback() {
     (async () => {
       try {
         await zerodhaCallback(requestToken);
+        console.log(requestToken);
         if (!cancelled) {
           await loadOnboarding();
           navigate("/dashboard", { replace: true });

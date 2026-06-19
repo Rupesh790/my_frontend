@@ -16,7 +16,7 @@ function AISuggestions() {
       setError(null);
 
       try {
-        const data = await apiGet("/api/ai-suggestions/");
+        const data = await apiGet("/trading/api/ai-suggestions/");
         if (!cancelled) {
           setStocks(data);
         }

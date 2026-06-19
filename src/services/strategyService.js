@@ -5,31 +5,31 @@ function token() {
 }
 
 export async function getStrategies() {
-  return apiGet("/api/strategies/", token());
+  return apiGet("/trading/api/strategies/", token());
 }
 
 export async function getStrategy(id) {
-  return apiGet(`/api/strategies/${id}/`, token());
+  return apiGet(`/trading/api/strategies/${id}/`, token());
 }
 
 export async function createStrategy(data) {
-  return apiPost("/api/strategies/", data, token());
+  return apiPost("/trading/api/strategies/", data, token());
 }
 
 export async function updateStrategy(id, data) {
-  return apiPut(`/api/strategies/${id}/`, data, token());
+  return apiPut(`/trading/api/strategies/${id}/`, data, token());
 }
 
 export async function deleteStrategy(id) {
-  return apiDelete(`/api/strategies/${id}/`, token());
+  return apiDelete(`/trading/api/strategies/${id}/`, token());
 }
 
 export async function cloneStrategy(id) {
-  return apiPost(`/api/strategies/${id}/clone/`, {}, token());
+  return apiPost(`/trading/api/strategies/${id}/clone/`, {}, token());
 }
 
 export async function toggleStrategy(id) {
-  return apiPost(`/api/strategies/${id}/toggle/`, {}, token());
+  return apiPost(`/trading/api/strategies/${id}/toggle/`, {}, token());
 }
 
 export const INSTRUMENT_TYPES = [
