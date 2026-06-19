@@ -1,16 +1,50 @@
-# React + Vite
+# IndiaTrade Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite trading dashboard with Google OAuth authentication and real-time market widgets.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 19 + Vite 8
+- React Router DOM 7
+- Django REST Framework backend (separate repo)
+- Google OAuth + JWT (SimpleJWT)
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+cp .env.example .env   # configure API URL and Google client ID
+npm run dev            # http://localhost:3000
+```
 
-## Expanding the ESLint configuration
+## Environment Variables
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Variable | Description |
+|----------|-------------|
+| `VITE_API_BASE_URL` | Django API base URL |
+| `VITE_GOOGLE_LINK` | Google OAuth authorization URL |
+| `VITE_GOOGLELOGIN` | Backend Google login endpoint |
+| `VITE_USERME` | Authenticated user profile endpoint |
+| `VITE_REFRESHTOKEN` | JWT refresh endpoint |
+| `VITE_BLACKLIST` | JWT blacklist (logout) endpoint |
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Production build |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
+
+## Project Structure
+
+```
+src/
+├── api/           # API client utilities
+├── components/    # Shared UI components
+├── context/       # Auth context provider
+├── googlelogin/   # Auth pages and services
+├── pages/         # Route pages
+└── styles/        # Global CSS and design tokens
+```

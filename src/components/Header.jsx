@@ -1,63 +1,68 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
-import "./Header.css";
+import { useAuth } from "../hooks/useAuth";
 import Hero from "./Herotext";
+import "./Header.css";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
 
-  const token = localStorage.getItem("auth_token");
-  console.log(token);
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <header className="header">
-      <div className="logo">
+      <NavLink to="/" className="logo" onClick={closeMenu} aria-label="IndiaTrade home">
+        <span className="logo-mark">IT</span>
+        <span className="logo-text">IndiaTrade</span>
+      </NavLink>
 
-        {token ? (
-          <NavLink
-            to="/profile"
-            onClick={() => setMenuOpen(false)}
-          >
-            <FaUserCircle size={28} />
-          </NavLink>
-        ) : (
-          <NavLink
-            to="/login"
-            onClick={() => setMenuOpen(false)}
-          >
-            <FaUserCircle size={28} />
-          </NavLink>
-        )}
-
+      <div className="hero-wrapper" aria-hidden={menuOpen}>
+        <Hero />
       </div>
 
-      <span>
-        <Hero />
-      </span>
-
-      <nav className={`nav-menu ${menuOpen ? "active" : ""}`}>
-        <NavLink to="/" onClick={() => setMenuOpen(false)}>
+      <nav
+        id="main-nav"
+        className={`nav-menu ${menuOpen ? "active" : ""}`}
+        aria-label="Main navigation"
+      >
+        <NavLink to="/" onClick={closeMenu} end>
           Home
         </NavLink>
-
-        <NavLink to="/about" onClick={() => setMenuOpen(false)}>
+        <NavLink to="/about" onClick={closeMenu}>
           About
         </NavLink>
-
-        <NavLink to="/services" onClick={() => setMenuOpen(false)}>
+        <NavLink to="/services" onClick={closeMenu}>
           Services
         </NavLink>
-
-        <NavLink to="/contact" onClick={() => setMenuOpen(false)}>
+        <NavLink to="/contact" onClick={closeMenu}>
           Contact
         </NavLink>
       </nav>
 
-      <div
-        className="hamburger"
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
-        ☰
+      <div className="header-actions">
+        <NavLink
+          to={isAuthenticated ? "/profile" : "/login"}
+          onClick={closeMenu}
+          className="user-link"
+          aria-label={isAuthenticated ? "View profile" : "Sign in"}
+        >
+          <FaUserCircle size={28} />
+        </NavLink>
+
+        <button
+          type="button"
+          className="hamburger"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-expanded={menuOpen}
+          aria-controls="main-nav"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </div>
     </header>
   );

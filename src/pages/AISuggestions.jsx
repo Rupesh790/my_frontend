@@ -1,58 +1,100 @@
 import { useEffect, useState } from "react";
+import { apiGet } from "../api/client";
+import LoadingSpinner from "../components/LoadingSpinner";
 import "./AISuggestions.css";
 
 function AISuggestions() {
   const [stocks, setStocks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://api/ai-suggestions/")
-      .then((res) => res.json())
-      .then((data) => setStocks(data));
+    let cancelled = false;
+
+    async function fetchSuggestions() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const data = await apiGet("/api/ai-suggestions/");
+        if (!cancelled) {
+          setStocks(data);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(err.message || "Failed to load AI suggestions");
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    fetchSuggestions();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
-    <div className="ai-card">
+    <section className="ai-card fade-in" aria-labelledby="ai-suggestions-title">
       <div className="ai-header">
-        <h2>🤖 AI Trade Suggestions</h2>
-        <span>Live Opportunities</span>
+        <h2 id="ai-suggestions-title">AI Trade Suggestions</h2>
+        <span className="ai-badge">Live Opportunities</span>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Stock</th>
-            <th>Signal</th>
-            <th>Entry</th>
-            <th>Target</th>
-            <th>Stop Loss</th>
-            <th>Confidence</th>
-          </tr>
-        </thead>
+      {loading && <LoadingSpinner message="Loading suggestions..." />}
 
-        <tbody>
-          {stocks.map((stock, index) => (
-            <tr key={index}>
-              <td>{stock.symbol}</td>
-              <td>
-                <span
-                  className={
-                    stock.signal === "BUY"
-                      ? "buy-badge"
-                      : "sell-badge"
-                  }
-                >
-                  {stock.signal}
-                </span>
-              </td>
-              <td>₹{stock.entry}</td>
-              <td>₹{stock.target}</td>
-              <td>₹{stock.stoploss}</td>
-              <td>{stock.confidence}%</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+      {error && (
+        <div className="error-state" role="alert">
+          <p>{error}</p>
+        </div>
+      )}
+
+      {!loading && !error && stocks.length === 0 && (
+        <p className="empty-state-inline">No suggestions available</p>
+      )}
+
+      {!loading && !error && stocks.length > 0 && (
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Stock</th>
+                <th scope="col">Signal</th>
+                <th scope="col">Entry</th>
+                <th scope="col">Target</th>
+                <th scope="col">Stop Loss</th>
+                <th scope="col">Confidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stocks.map((stock) => (
+                <tr key={stock.symbol}>
+                  <td className="stock-symbol">{stock.symbol}</td>
+                  <td>
+                    <span
+                      className={
+                        stock.signal === "BUY" ? "buy-badge" : "sell-badge"
+                      }
+                    >
+                      {stock.signal}
+                    </span>
+                  </td>
+                  <td>₹{stock.entry}</td>
+                  <td>₹{stock.target}</td>
+                  <td>₹{stock.stoploss}</td>
+                  <td>
+                    <span className="confidence">{stock.confidence}%</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
   );
 }
 

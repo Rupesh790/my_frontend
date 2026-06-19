@@ -1,56 +1,95 @@
 .ai-card {
-  margin-top: 25px;
-  background: white;
-  border-radius: 16px;
-  padding: 25px;
-
-  box-shadow: 0 4px 15px rgba(0,0,0,.08);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .ai-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
 }
 
 .ai-header h2 {
-  color: #0f172a;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
 }
 
-.ai-header span {
-  color: #64748b;
+.ai-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-full);
 }
 
 .ai-card table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 0.875rem;
 }
 
 .ai-card th {
-  background: #f8fafc;
-  padding: 14px;
+  background: var(--color-bg);
+  padding: 0.75rem;
   text-align: left;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .ai-card td {
-  padding: 14px;
-  border-bottom: 1px solid #e2e8f0;
+  padding: 0.875rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.ai-card tbody tr:hover {
+  background: var(--color-bg);
 }
 
 .buy-badge {
-  background: #dcfce7;
-  color: #15803d;
-  padding: 5px 10px;
-  border-radius: 20px;
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
   font-weight: 600;
+  font-size: 0.75rem;
 }
 
 .sell-badge {
-  background: #fee2e2;
-  color: #b91c1c;
-  padding: 5px 10px;
-  border-radius: 20px;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
   font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.confidence {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .ai-card {
+    padding: 1rem;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ai-card table {
+    min-width: 600px;
+  }
 }

@@ -1,14 +1,24 @@
-export const getToken = () => {
-  return JSON.parse(localStorage.getItem("auth_token"));
-};
+export function getToken() {
+  const raw = localStorage.getItem("auth_token");
+  if (!raw) return null;
 
-export const saveToken = (token) => {
-  localStorage.setItem(
-    "auth_token",
-    JSON.stringify(token)
-  );
-};
+  try {
+    return JSON.parse(raw);
+  } catch {
+    localStorage.removeItem("auth_token");
+    return null;
+  }
+}
 
-export const removeToken = () => {
+export function saveToken(token) {
+  localStorage.setItem("auth_token", JSON.stringify(token));
+}
+
+export function removeToken() {
   localStorage.removeItem("auth_token");
-};
+}
+
+export function isAuthenticated() {
+  const token = getToken();
+  return Boolean(token?.access);
+}
