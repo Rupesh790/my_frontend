@@ -49,15 +49,28 @@ export async function logoutUser(refreshTokenValue) {
 export async function refreshToken(token) {
   const response = await fetch(REFRESHTOKEN_API, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ refresh: token.refresh }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      refresh: token.refresh,
+    }),
   });
 
   const data = await response.json();
+
+  console.log("Refresh Response:", data);
 
   if (!response.ok) {
     throw new Error(data.detail || "Token refresh failed");
   }
 
-  return data;
+  const updatedToken = {
+    access: data.access,
+    refresh: data.refresh || token.refresh,
+  };
+
+  saveToken(updatedToken);
+
+  return updatedToken;
 }
